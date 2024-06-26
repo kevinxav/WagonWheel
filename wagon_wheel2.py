@@ -130,45 +130,56 @@ def main():
         if "Pace" in pace_or_spin:
             bowling_type_options = ["All", "RAP", "LAP"]
             selected_bowling_types = st.multiselect("Select Bowling Type Group:", bowling_type_options, default=["All"])
+
             if "All" not in selected_bowling_types:
-                bowling_type_values = []
-                if "RAP" in selected_bowling_types:
-                    bowling_type_values.append(1)
-                if "LAP" in selected_bowling_types:
-                    bowling_type_values.append(2)
-                filtered_data = filtered_data[filtered_data['BowlingTypeGroup'].isin(bowling_type_values)]
-
-        # Region Type filter
-        region_types = ["4 Region", "6 Region", "8 Region"]
-        selected_region_type = st.selectbox("Select the region type:", region_types)
-
-        # Ensure only numerical columns are summed
-        numeric_cols = filtered_data.select_dtypes(include='number').columns
-        total_runs_all = filtered_data.groupby(['StrikerName'])[numeric_cols].sum()
-
-        if "All" not in selected_batsman_name:
+                filtered_data = filtered_data[filtered_data['BowlingTypeGroup'].isin(selected_bowling_types)]
+        
+        # Filtered batsmen
+        if 'All' not in selected_batsman_name:
             filtered_data = filtered_data[filtered_data['StrikerName'].isin(selected_batsman_name)]
+    
+        st.dataframe(filtered_data[['StrikerName', 'matchid', 'battingclubid', 'bowlingteamid', 'PaceorSpin', 'BowlingTypeGroup']])
 
-        batsman_groups = filtered_data.groupby(['StrikerName', 'WWregion63'])
+        # Region Type
+        region_type = st.selectbox("Select Region Type:", ["4 Region", "6 Region", "8 Region"])
 
-        for batsman_name in selected_batsman_name:
-            if batsman_name == "All":
-                continue
-            total_runs = total_runs_all.loc[batsman_name, 'batruns']
-            if (batsman_name, '3') in batsman_groups.groups:
-                batsman_data = batsman_groups.get_group((batsman_name, '3'))
-            else:
-                continue
+        # Batting Hand
+        batting_hand = st.selectbox("Select Batting Hand:", ["RHB", "LHB"])
 
-            # Plotting code using the selected region type and batting hand
-            regions = get_regions(selected_region_type, "RHB")  # Assuming RHB for now, update logic as needed
+        # Region Configuration
+        regions = get_regions(region_type, batting_hand)
+        
+        # Plot Configuration
+        runs_columns = st.columns(len(regions))
+        regions_data = {}
+        for i, (region_name, region_info) in enumerate(regions.items()):
+            with runs_columns[i]:
+                regions_data[region_name] = st.number_input(f"Runs in {region_name}", min_value=0, max_value=1000, value=0)
+
+        if st.button("Plot"):
+            fig, ax = plt.subplots()
+
+            # Plot setup
+            ax.set_xlim([0, 600])
+            ax.set_ylim([0, 600])
+            ax.imshow(Image.open("Pitch_Map1.png"))
+
             for region_name, region_info in regions.items():
-                # Perform plotting based on regions
-                plt.plot(region_info['boundary'], label=region_name)
+                runs = regions_data[region_name]
+                if runs > 0:
+                    polygon = plt.Polygon(region_info['boundary'], closed=True, fill=None, edgecolor='r')
+                    ax.add_patch(polygon)
+                    plt.text(region_info['text_position'][0], region_info['text_position'][1], str(runs), fontsize=12, ha='center')
 
-            plt.title(f"Wagon Wheel for {batsman_name}")
-            plt.legend()
-            plt.show()
+            st.pyplot(fig)
+
+            # Create download link for the plot
+            img_buffer = BytesIO()
+            fig.savefig(img_buffer, format='png')
+            img_buffer.seek(0)
+            img_data = img_buffer.getvalue()
+            download_link = get_binary_file_downloader_html(img_data, "wagon_wheel_plot.png", "Download Wagon Wheel Plot")
+            st.markdown(download_link, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
