@@ -138,10 +138,6 @@ def main():
                     bowling_type_values.append(2)
                 filtered_data = filtered_data[filtered_data['BowlingTypeGroup'].isin(bowling_type_values)]
 
-        # Batsman's Hand filter
-        batting_hand_options = ["RHB", "LHB"]
-        batting_hand = st.selectbox("Select the batsman's hand:", batting_hand_options)
-
         # Region Type filter
         region_types = ["4 Region", "6 Region", "8 Region"]
         selected_region_type = st.selectbox("Select the region type:", region_types)
