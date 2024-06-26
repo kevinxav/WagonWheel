@@ -163,7 +163,7 @@ def main():
 
         filtered_data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
         filtered_data = filter_data_by_phase(filtered_data, phase_option)
-        total_runs_all = filtered_data.groupby('StrikerName')['BatRuns'].sum().to_dict()
+        total_runs_all = filtered_data.groupby('StrikerName')['batruns'].sum().to_dict()
 
         if batsman_name:
             plots = []
