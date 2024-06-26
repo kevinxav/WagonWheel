@@ -81,12 +81,12 @@ def get_regions(region_type, batting_hand):
 def main():
     st.title("Cricket Wagon Wheel Visualization")
 
-    csv_path ="NewData.csv"
+    csv_path = "NewData.csv"
     data = pd.read_csv(csv_path)
     data = data.dropna(subset=['overs'])
-    data['Date'] = pd.to_datetime(data['date'])
+    data['Date'] = pd.to_datetime(data['date'], format="%d%m%Y")
 
-       # Date range filter
+    # Date range filter
     start_date, end_date = st.date_input("Select date range:", [data['Date'].min(), data['Date'].max()])
     filtered_data = data[(data['Date'] >= pd.to_datetime(start_date)) & (data['Date'] <= pd.to_datetime(end_date))]
 
@@ -149,19 +149,19 @@ def main():
         if "All" not in selected_batsman_name:
             filtered_data = filtered_data[filtered_data['StrikerName'].isin(selected_batsman_name)]
 
-        batsman_groups = filtered_data.groupby(['StrikerName', 'batsmanballposition', 'WWregion63'])
+        batsman_groups = filtered_data.groupby(['StrikerName', 'WWregion63'])
 
         for batsman_name in selected_batsman_name:
             if batsman_name == "All":
                 continue
-            total_runs = total_runs_all.loc[batsman_name, 'batsmantotalruns']
-            if (batsman_name, 'R', '3') in batsman_groups.groups:
-                batsman_data = batsman_groups.get_group((batsman_name, 'R', '3'))
+            total_runs = total_runs_all.loc[batsman_name, 'batruns']
+            if (batsman_name, '3') in batsman_groups.groups:
+                batsman_data = batsman_groups.get_group((batsman_name, '3'))
             else:
                 continue
 
             # Plotting code using the selected region type and batting hand
-            regions = get_regions(selected_region_type, batting_hand)
+            regions = get_regions(selected_region_type, "RHB")  # Assuming RHB for now, update logic as needed
             for region_name, region_info in regions.items():
                 # Perform plotting based on regions
                 plt.plot(region_info['boundary'], label=region_name)
@@ -172,3 +172,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
