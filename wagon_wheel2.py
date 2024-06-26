@@ -146,7 +146,7 @@ def main():
         region_types = ["4 Region", "6 Region", "8 Region"]
         selected_region_type = st.selectbox("Select the region type:", region_types)
 
-        total_runs_all = filtered_data.groupby(['StrikerName']).sum()['batsmantotalruns']
+        total_runs_all = filtered_data.groupby(['StrikerName']).sum()['batruns']
         batsman_groups = filtered_data.groupby(['StrikerName', 'batsmanballposition', 'wagonregion'])
 
         if "All" not in selected_batsman_name:
