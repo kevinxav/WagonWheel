@@ -86,7 +86,7 @@ def main():
     data = data.dropna(subset=['overs'])
     data['Date'] = pd.to_datetime(data['date'])
 
-    # Date range filter
+       # Date range filter
     start_date, end_date = st.date_input("Select date range:", [data['Date'].min(), data['Date'].max()])
     filtered_data = data[(data['Date'] >= pd.to_datetime(start_date)) & (data['Date'] <= pd.to_datetime(end_date))]
 
@@ -146,15 +146,23 @@ def main():
         region_types = ["4 Region", "6 Region", "8 Region"]
         selected_region_type = st.selectbox("Select the region type:", region_types)
 
-        total_runs_all = filtered_data.groupby(['StrikerName']).sum()['batruns']
-        batsman_groups = filtered_data.groupby(['StrikerName', 'batsmanballposition', 'wagonregion'])
+        # Ensure only numerical columns are summed
+        numeric_cols = filtered_data.select_dtypes(include='number').columns
+        total_runs_all = filtered_data.groupby(['StrikerName'])[numeric_cols].sum()
 
         if "All" not in selected_batsman_name:
             filtered_data = filtered_data[filtered_data['StrikerName'].isin(selected_batsman_name)]
 
+        batsman_groups = filtered_data.groupby(['StrikerName', 'batsmanballposition', 'wagonregion'])
+
         for batsman_name in selected_batsman_name:
-            total_runs = total_runs_all.get(batsman_name, 0)
-            batsman_data = batsman_groups.get_group((batsman_name, 'R', '3'))
+            if batsman_name == "All":
+                continue
+            total_runs = total_runs_all.loc[batsman_name, 'batsmantotalruns']
+            if (batsman_name, 'R', '3') in batsman_groups.groups:
+                batsman_data = batsman_groups.get_group((batsman_name, 'R', '3'))
+            else:
+                continue
 
             # Plotting code using the selected region type and batting hand
             regions = get_regions(selected_region_type, batting_hand)
