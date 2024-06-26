@@ -153,7 +153,7 @@ def main():
         if "All" not in selected_batsman_name:
             filtered_data = filtered_data[filtered_data['StrikerName'].isin(selected_batsman_name)]
 
-        batsman_groups = filtered_data.groupby(['StrikerName', 'batsmanballposition', 'wagonregion'])
+        batsman_groups = filtered_data.groupby(['StrikerName', 'batsmanballposition', 'WWregion63'])
 
         for batsman_name in selected_batsman_name:
             if batsman_name == "All":
