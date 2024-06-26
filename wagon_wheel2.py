@@ -162,7 +162,7 @@ def main():
             # Plot setup
             ax.set_xlim([0, 600])
             ax.set_ylim([0, 600])
-            ax.imshow(Image.open("Pitch_Map1.png"))
+            ax.imshow(Image.open("wagon.jpg"))
 
             for region_name, region_info in regions.items():
                 runs = regions_data[region_name]
