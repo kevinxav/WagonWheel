@@ -1,0 +1,38 @@
+I need to plot in wagon wheel for cricket using python and i have an idea for 
+the same project.
+
+I will explain the idea in detail,
+step 1: Initially i will be having a csv with column name with batsman name, BatRuns, WagonWheel, BowlBalls and also a wagon wheel image that will be provided in the code. 
+
+step2: The idea about the plotting is, there will be 8 regions in the wagon wheel namely region1,2,3,etc.. We will define boundry coordinates of each regions in pixcel values this will divide each region in the image. 
+
+step3: From the csv we will map the wagonwheel data to each region. For example point would be region1, Thirdman would be region2, etc..... 
+
+step4: The code should read the csv and count the num of balls that went in that region and calculate the percentage by count of the ball in that each region by the totall num of balls.
+
+step5: After we have calculated the percentage of each region we should display the percentage in center of each region by using the pixel values of the region.
+
+I have specified each steps, i need a high end python code for this wagon wheel plotting. 
+
+
+##########################################################################################################################
+
+
+
+
+For Batsman 
+
+step 1: For this code Ask input from the user to enter the batsman name for that take input from the column named "StrikerName"
+
+step2: calculate the total runs in the column named "BatRuns" that had been scored by that user given batsman 
+
+step 3: Using the "WagonWheel" column specify how many times  hit in those regions and calculate the total runs scored by the given batsman in every region using the "BatRuns" column 
+
+Step4: Calculate the total percentage of runs in each region and plot those percentage on the specific region in rounded off value  
+
+##########################################################################################################################
+For this code "spin_or_pace = input("Enter '1' for pace, '2' for spin, or '3' for both : ")" again ask input from the user and ask "Against runs :" for that take the input from the column named "0s", "1s", "2s", "3s", "4s","6s", "batwkts", if the user want 6 search the column named "6s" if that column has value 1 plot, if the user want 4 search the column named "4s" if that column has value 1 plot only  only that, if the user want 3 search the column named "3s" if that column has value 1 plot only, if the user want 2 search the column named "2s" if that column has value 1 plot only if the user want 1 search the column named "1s" if that column has value 1 plot only , if the user want dots search the column named "0s" if that column has value 1 plot only  and if they want all runs give option for that too like "all" if they give all plot everything also for "batwkts" also  .Based on that plot the plotting for "PaceOrSpin" also 
+
+
+
+Currently the code asks for name of the batsman next it is asking options for pace,  spin and all and then it is asking for specific runs option. But i need the code to ask the details from the user in this order, first name of the batsman second Pace or Spin or All and then if we give 1(Pace) it should ask for "RAP" or "LAP" or "Both", After this the "RunSpecific"(0s, 1s, 2s, 3s, 4s, 6s, batwkts or All) filter should be used  similarly for spin if i give 2 (Spin) then asks for options like 3("RAO"), 4("SLAO"), 5("RALB") and 6("LAC"). After this the "RunSpecific"(0s, 1s, 2s, 3s, 4s, 6s, batwkts or All) filter should be used 
