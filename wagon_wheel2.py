@@ -138,7 +138,7 @@ def main():
         if 'All' not in selected_batsman_name:
             filtered_data = filtered_data[filtered_data['StrikerName'].isin(selected_batsman_name)]
     
-        st.dataframe(filtered_data[['StrikerName', 'matchid', 'battingclubid', 'bowlingteamid', 'PaceorSpin', 'BowlingTypeGroup']])
+        st.dataframe(filtered_data[['StrikerName', 'matchid', 'battingclubid', 'PaceorSpin', 'BowlingTypeGroup']])
 
         # Region Type
         region_type = st.selectbox("Select Region Type:", ["4 Region", "6 Region", "8 Region"])
