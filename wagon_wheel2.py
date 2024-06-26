@@ -157,15 +157,15 @@ def four_region(data, batsman_name, total_runs_all, plots):
     regions_rhb = {
         'Region 1': {'boundary': [(64, 262), (296, 28)], 'text_position': (136, 96)},
         'Region 2': {'boundary': [(296, 28), (533, 259)], 'text_position': (465, 96)},
-        'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (456, 432)},
-        'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (133, 432)},
-    }                                                                   
+        'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (383, 478)},
+        'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (202, 478)},
+    }
 
     regions_lhb = {
         'Region 1': {'boundary': [(296, 28), (533, 259)], 'text_position': (465, 96)},
         'Region 2': {'boundary': [(64, 262), (296, 28)], 'text_position': (136, 96)},
-        'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (133, 432)},
-        'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (456, 432)},
+        'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (202, 478)},
+        'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (383, 478)},
     }
 
     total_runs = total_runs_all[batsman_name]
@@ -183,22 +183,22 @@ def four_region(data, batsman_name, total_runs_all, plots):
         wagon_wheel_position = row['WagonWheel']
         runs_scored = row['BatRuns']
         if batting_type == 'RHB':
-            if wagon_wheel_position in [23, 15, 7, 24, 16, 8]:
+            if wagon_wheel_position in [18, 10, 2, 24, 16, 8, 23, 15, 7, 17, 9, 1]:
                 region_runs['Region 1'] += runs_scored
-            elif wagon_wheel_position in [17, 9, 1, 18, 10, 2]:
+            elif wagon_wheel_position in [22, 14, 6, 19, 11, 3, 20, 12, 4, 21, 13, 5]:
                 region_runs['Region 2'] += runs_scored
-            elif wagon_wheel_position in [19, 11, 3, 20, 12, 4]:
+            elif wagon_wheel_position in [25, 26, 27, 28]:
                 region_runs['Region 3'] += runs_scored
-            elif wagon_wheel_position in [21, 13, 5, 22, 14, 6]:
+            elif wagon_wheel_position in [29, 30, 31, 32]:
                 region_runs['Region 4'] += runs_scored
         elif batting_type == 'LHB':
-            if wagon_wheel_position in [18, 10, 2, 17, 9, 1]:
+            if wagon_wheel_position in [22, 14, 6, 19, 11, 3, 20, 12, 4, 21, 13, 5]:
                 region_runs['Region 1'] += runs_scored
-            elif wagon_wheel_position in [24, 16, 8, 23, 15, 7]:
+            elif wagon_wheel_position in [18, 10, 2, 24, 16, 8, 23, 15, 7, 17, 9, 1]:
                 region_runs['Region 2'] += runs_scored
-            elif wagon_wheel_position in [22, 14, 6, 21, 13, 5]:
+            elif wagon_wheel_position in [25, 26, 27, 28]:
                 region_runs['Region 3'] += runs_scored
-            elif wagon_wheel_position in [20, 12, 4, 19, 11, 3]:
+            elif wagon_wheel_position in [29, 30, 31, 32]:
                 region_runs['Region 4'] += runs_scored
         else:
             st.error("Invalid batting type! Please check the data.")
@@ -235,200 +235,43 @@ def four_region(data, batsman_name, total_runs_all, plots):
     plt.savefig(f"{batsman_name}_wagon_wheel.png")
     plt.close()
 
-def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
-    batting_type_data = data[data['StrikerName'] == batsman_name]['BattingType']
-    if batting_type_data.empty:
-        st.error(f"No data available for {batsman_name} with the selected filter.")
-        return
+# Add this line to specify the file path
+csv_file_path = "Ausvsnz_new.csv"
 
-    batting_type = batting_type_data.iloc[0]
+# Replace this line
+# file = st.file_uploader("Upload CSV", type="csv")
 
-    regions_rhb = {
-        'Region 1': {'boundary': [(64, 260), (131, 96)], 'text_position': (84, 169)},
-        'Region 2': {'boundary': [(131, 96), (298, 25)], 'text_position': (211, 44)},
-        'Region 3': {'boundary': [(298, 25), (466, 97)], 'text_position': (385, 44)},
-        'Region 4': {'boundary': [(466, 97), (533, 260)], 'text_position': (513, 169)},
-        'Region 5': {'boundary': [(533, 260), (465, 425)], 'text_position': (512, 358)},
-        'Region 6': {'boundary': [(465, 260), (299, 498)], 'text_position': (392, 473)},
-        'Region 7': {'boundary': [(299, 498), (136, 426)], 'text_position': (215, 473)},
-        'Region 8': {'boundary': [(136, 426), (64, 260)], 'text_position': (84, 358)},
-    }
+# Add this line to read the CSV directly
+data = pd.read_csv(csv_file_path)
 
-    regions_lhb = {
-        'Region 1': {'boundary': [(533, 260), (466, 97)], 'text_position': (513, 169)},
-        'Region 2': {'boundary': [(466, 97), (298, 25)], 'text_position': (385, 44)},
-        'Region 3': {'boundary': [(298, 25), (131, 96)], 'text_position': (211, 44)},
-        'Region 4': {'boundary': [(131, 96), (64, 260)], 'text_position': (84, 169)},
-        'Region 5': {'boundary': [(64, 260), (136, 426)], 'text_position': (84, 358)},
-        'Region 6': {'boundary': [(136, 426), (299, 498)], 'text_position': (215, 473)},
-        'Region 7': {'boundary': [(299, 498), (465, 260)], 'text_position': (392, 473)},
-        'Region 8': {'boundary': [(465, 260), (533, 260)], 'text_position': (512, 358)},
-    }
+# Select filtering options
+bowling_type = st.selectbox("Select Bowling Type", ["Both", "Pace", "Spin"])
+pace_subtype = st.selectbox("Select Pace Subtype", ["All", "RAP", "LAP"]) if bowling_type == "Pace" else None
+spin_subtype = st.selectbox("Select Spin Subtype", ["All", "RAO", "SLAO", "RALB", "LAC"]) if bowling_type == "Spin" else None
 
-    total_runs = total_runs_all[batsman_name]
+phase_option = st.selectbox("Select Phase", ["All", "Power Play (1-6)", "Middle Overs (7-15)", "Death Overs (16-20)"])
 
-    if batting_type == 'RHB':
-        regions = regions_rhb
-    elif batting_type == 'LHB':
-        regions = regions_lhb
-    else:
-        st.error("Invalid batting type! Please check the data.")
-        return
+# Filter data based on selections
+filtered_data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
+filtered_data = filter_data_by_phase(filtered_data, phase_option)
 
-    region_runs = {region: 0 for region in regions}
-    for index, row in data[data['StrikerName'] == batsman_name].iterrows():
-        wagon_wheel_position = row['WagonWheel']
-        runs_scored = row['BatRuns']
-        if batting_type == 'RHB':
-            if wagon_wheel_position in [23, 15, 7]:
-                region_runs['Region 1'] += runs_scored
-            elif wagon_wheel_position in [24, 16, 8]:
-                region_runs['Region 2'] += runs_scored
-            elif wagon_wheel_position in [17, 9, 1]:
-                region_runs['Region 3'] += runs_scored
-            elif wagon_wheel_position in [18, 10, 2]:
-                region_runs['Region 4'] += runs_scored
-            elif wagon_wheel_position in [19, 11, 3]:
-                region_runs['Region 5'] += runs_scored
-            elif wagon_wheel_position in [20, 12, 4]:
-                region_runs['Region 6'] += runs_scored
-            elif wagon_wheel_position in [21, 13, 5]:
-                region_runs['Region 7'] += runs_scored
-            elif wagon_wheel_position in [22, 14, 6]:
-                region_runs['Region 8'] += runs_scored
-        elif batting_type == 'LHB':
-            if wagon_wheel_position in [18, 10, 2]:
-                region_runs['Region 1'] += runs_scored
-            elif wagon_wheel_position in [17, 9, 1]:
-                region_runs['Region 2'] += runs_scored
-            elif wagon_wheel_position in [24, 16, 8]:
-                region_runs['Region 3'] += runs_scored
-            elif wagon_wheel_position in [23, 15, 7]:
-                region_runs['Region 4'] += runs_scored
-            elif wagon_wheel_position in [22, 14, 6]:
-                region_runs['Region 5'] += runs_scored
-            elif wagon_wheel_position in [21, 13, 5]:
-                region_runs['Region 6'] += runs_scored
-            elif wagon_wheel_position in [20, 12, 4]:
-                region_runs['Region 7'] += runs_scored
-            elif wagon_wheel_position in [19, 11, 3]:
-                region_runs['Region 8'] += runs_scored
-        else:
-            st.error("Invalid batting type! Please check the data.")
-            return
+# Display the filtered data
+st.write("Filtered Data", filtered_data)
 
-    region_percentages = {region: round((runs / total_runs) * 100) for region, runs in region_runs.items()}
+# Prepare the data for plotting
+batsmen = filtered_data['StrikerName'].unique()
+total_runs_all = filtered_data.groupby('StrikerName')['BatRuns'].sum().to_dict()
 
-    img = plt.imread('wagon.jpg')
-    plt.imshow(img)
+plots = []
+for batsman in batsmen:
+    six_region(filtered_data, batsman, total_runs_all, plots, phase_option)
+    four_region(filtered_data, batsman, total_runs_all, plots)
 
-    for region, info in regions.items():
-        text_position = info['text_position']
-        plt.text(text_position[0], text_position[1], f"{region_percentages[region]}%", ha='center', va='center', fontsize=10, color='White', bbox=dict(facecolor='blue', edgecolor='black', boxstyle='round,pad=0.5'))
+# Create a zip file of all the plots
+zip_buffer = BytesIO()
+with zipfile.ZipFile(zip_buffer, "w") as zf:
+    for i, plot in enumerate(plots):
+        zf.writestr(f"plot_{i+1}.png", plot.getvalue())
 
-    plt.axis('off')
-
-    # Save the plot as an image and append it to the list
-    buf = BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    plt.close()
-    plots.append(buf)
-
-    # Display the image on the page
-    st.image(buf, caption=f"Wagon Wheel for {batsman_name}", use_column_width=True)
-
-    # Save the plot as a detailed image
-    plt.figure()
-    plt.imshow(img)
-    for region, info in regions.items():
-        text_position = info['text_position']
-        plt.text(text_position[0], text_position[1], f"{region_percentages[region]}%", ha='center', va='center', fontsize=10, color='White', bbox=dict(facecolor='blue', edgecolor='black', boxstyle='round,pad=0.5'))
-    plt.axis('off')
-    plt.savefig(f"{batsman_name}_wagon_wheel.png")
-    plt.close()
-
-
-def main():
-    st.title('Wagon Wheel')
-    uploaded_file = st.file_uploader("Choose a file")
-    
-    if uploaded_file:
-        data = pd.read_csv(uploaded_file)
-
-        # Print column names for debugging
-        st.write("Columns in the uploaded file:", data.columns.tolist())
-
-        required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WagonWheel', 'BatRuns']
-        missing_columns = [col for col in required_columns if col not in data.columns]
-        
-        if missing_columns:
-            st.error(f"Missing columns in the uploaded file: {', '.join(missing_columns)}")
-            return
-
-        # Step 1: Add a dropdown to select the match name
-        match_names = data['MatchName'].unique().tolist()
-        match_name = st.selectbox("Select the Match", match_names)
-
-        # Filter data based on selected match
-        data = data[data['MatchName'] == match_name]
-
-        # Step 2: Proceed with region selection
-        region_option = st.selectbox(
-            'Select the region option',
-            ('4 Region', '6 Region', '8 Region')
-        )
-
-        # Step 3: Allow user to select batsmen's names
-        clubs = data['BatClubName'].unique().tolist()
-        selected_club = st.selectbox("Select the club", clubs)
-
-        # Filter data based on selected club
-        data = data[data['BatClubName'] == selected_club]
-
-        # Multi-select for batsmen
-        batsmen = data['StrikerName'].unique().tolist()
-        selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
-
-        # Step 4: Add a dropdown to select the phase of the game
-        phase_option = st.selectbox(
-            'Select the phase of the game',
-            ('All', 'Power Play (1-6)', 'Middle Overs (7-15)', 'Death Overs (16-20)')
-        )
-
-        # Filter data based on phase
-        data = filter_data_by_phase(data, phase_option)
-
-        # Step 5: Filter data by bowling type and subtype
-        bowling_type = st.selectbox("Select the bowling type", ["Both", "Pace", "Spin"])
-        pace_subtype = spin_subtype = None
-        if bowling_type == "Pace":
-            pace_subtype = st.selectbox("Select the pace subtype", ["All", "RAP", "LAP"])
-        elif bowling_type == "Spin":
-            spin_subtype = st.selectbox("Select the spin subtype", ["All", "RAO", "SLAO", "RALB", "LAC"])
-
-        data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
-
-        total_runs_all = data.groupby('StrikerName')['BatRuns'].sum().to_dict()
-
-        plots = []
-
-        for batsman in selected_batsmen:
-            if region_option == '4 Region':
-                four_region(data, batsman, total_runs_all, plots)
-            elif region_option == '6 Region':
-                six_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
-            elif region_option == '8 Region':
-                eight_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
-        
-        if plots:
-            zip_buffer = BytesIO()
-            with zipfile.ZipFile(zip_buffer, "w") as zip_file:
-                for batsman, plot in zip(selected_batsmen, plots):
-                    zip_file.writestr(f"{batsman}_wagon_wheel_in_{phase_option.replace(' ', '_')}.png", plot.getvalue())
-            zip_buffer.seek(0)
-        
-            st.markdown(get_binary_file_downloader_html(zip_buffer.getvalue(), 'plots.zip', 'Download all plots as ZIP'), unsafe_allow_html=True)
-
-if __name__ == '__main__':
-    main()
+# Provide a download link for the zip file
+st.markdown(get_binary_file_downloader_html(zip_buffer.getvalue(), file_label="plots.zip", button_text="Download All Plots"), unsafe_allow_html=True)
