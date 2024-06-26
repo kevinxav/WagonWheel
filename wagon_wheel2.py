@@ -8,58 +8,58 @@ from io import BytesIO
 
 # Define regions for right-hand batsmen
 regions_4_rhb = {
-    'Region 1': {'boundary': [(296, 28), (533, 259)], 'text_position': (465, 96)},
-    'Region 2': {'boundary': [(64, 262), (296, 28)], 'text_position': (136, 96)},
-    'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (383, 478)},
-    'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (202, 478)},
+    'Region 1': {'boundary': [(64, 262), (296, 28)], 'text_position': (136, 96)},
+    'Region 2': {'boundary': [(296, 28), (533, 259)], 'text_position': (465, 96)},
+    'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (456, 432)},
+    'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (133, 432)},
 }
 
 regions_6_rhb = {
-    'Region 1': {'boundary': [(296, 28), (422, 134)], 'text_position': (365, 81)},
-    'Region 2': {'boundary': [(422, 134), (533, 259)], 'text_position': (485, 196)},
-    'Region 3': {'boundary': [(533, 259), (366, 375)], 'text_position': (465, 333)},
-    'Region 4': {'boundary': [(366, 375), (299, 493)], 'text_position': (333, 434)},
-    'Region 5': {'boundary': [(299, 493), (198, 385)], 'text_position': (239, 431)},
-    'Region 6': {'boundary': [(198, 385), (64, 262)], 'text_position': (113, 334)},
+    'Region 1': {'boundary': [(64, 261), (294, 25)], 'text_position': (136, 95)},
+    'Region 2': {'boundary': [(294, 25), (536, 263)], 'text_position': (465, 95)},
+    'Region 3': {'boundary': [(536, 263), (461,263)], 'text_position': (516, 343)},
+    'Region 4': {'boundary': [(461, 263), (298, 492)], 'text_position': (383, 477)},
+    'Region 5': {'boundary': [(298, 492), (130, 425)], 'text_position': (202, 477)},
+    'Region 6': {'boundary': [(130, 425), (64, 261)], 'text_position': (77, 343)},
 }
 
 regions_8_rhb = {
-    'Region 1': {'boundary': [(296, 28), (399, 111)], 'text_position': (365, 81)},
-    'Region 2': {'boundary': [(399, 111), (486, 189)], 'text_position': (455, 143)},
-    'Region 3': {'boundary': [(486, 189), (533, 259)], 'text_position': (505, 230)},
-    'Region 4': {'boundary': [(533, 259), (436, 347)], 'text_position': (465, 333)},
-    'Region 5': {'boundary': [(436, 347), (366, 375)], 'text_position': (401, 361)},
-    'Region 6': {'boundary': [(366, 375), (299, 493)], 'text_position': (333, 434)},
-    'Region 7': {'boundary': [(299, 493), (211, 404)], 'text_position': (239, 431)},
-    'Region 8': {'boundary': [(211, 404), (64, 262)], 'text_position': (153, 321)},
+    'Region 1': {'boundary': [(64, 260), (131, 96)], 'text_position': (84, 169)},
+    'Region 2': {'boundary': [(131, 96), (298, 25)], 'text_position': (211, 44)},
+    'Region 3': {'boundary': [(298, 25), (466, 97)], 'text_position': (385, 44)},
+    'Region 4': {'boundary': [(466, 97), (533, 260)], 'text_position': (513, 169)},
+    'Region 5': {'boundary': [(533, 260), (465, 425)], 'text_position': (512, 358)},
+    'Region 6': {'boundary': [(465, 260), (299, 498)], 'text_position': (392, 473)},
+    'Region 7': {'boundary': [(299, 498), (136, 426)], 'text_position': (215, 473)},
+    'Region 8': {'boundary': [(136, 426), (64, 260)], 'text_position': (84, 358)},
 }
 
 # Define regions for left-hand batsmen
 regions_4_lhb = {
-    'Region 1': {'boundary': [(533, 28), (296, 259)], 'text_position': (136, 96)},
-    'Region 2': {'boundary': [(64, 28), (533, 28)], 'text_position': (465, 96)},
-    'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (202, 478)},
-    'Region 4': {'boundary': [(299, 493), (64, 259)], 'text_position': (383, 478)},
+    'Region 1': {'boundary': [(296, 28), (533, 259)], 'text_position': (465, 96)},
+    'Region 2': {'boundary': [(64, 262), (296, 28)], 'text_position': (136, 96)},
+    'Region 3': {'boundary': [(533, 259), (299, 493)], 'text_position': (133, 432)},
+    'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (456, 432)},
 }
 
 regions_6_lhb = {
-    'Region 1': {'boundary': [(533, 28), (399, 134)], 'text_position': (465, 81)},
-    'Region 2': {'boundary': [(399, 134), (296, 259)], 'text_position': (365, 196)},
-    'Region 3': {'boundary': [(296, 259), (436, 375)], 'text_position': (485, 333)},
-    'Region 4': {'boundary': [(436, 375), (299, 493)], 'text_position': (465, 434)},
-    'Region 5': {'boundary': [(299, 493), (198, 385)], 'text_position': (333, 431)},
-    'Region 6': {'boundary': [(198, 385), (64, 259)], 'text_position': (239, 334)},
+    'Region 1': {'boundary': [(294, 25), (536, 263)], 'text_position': (465, 95)},
+    'Region 2': {'boundary': [(64, 261), (294, 25)], 'text_position': (136, 95)},
+    'Region 3': {'boundary': [(536, 263), (461,263)], 'text_position': (77, 343)},
+    'Region 4': {'boundary': [(298, 492), (130, 425)], 'text_position': (202, 477)},
+    'Region 5': {'boundary': [(461, 263), (298, 492)], 'text_position': (383, 477)},
+    'Region 6': {'boundary': [(536, 263), (461,263)], 'text_position': (516, 343)},
 }
 
 regions_8_lhb = {
-    'Region 1': {'boundary': [(533, 28), (399, 111)], 'text_position': (465, 81)},
-    'Region 2': {'boundary': [(399, 111), (296, 189)], 'text_position': (455, 143)},
-    'Region 3': {'boundary': [(296, 189), (133, 259)], 'text_position': (505, 230)},
-    'Region 4': {'boundary': [(133, 259), (236, 347)], 'text_position': (465, 333)},
-    'Region 5': {'boundary': [(236, 347), (366, 375)], 'text_position': (401, 361)},
-    'Region 6': {'boundary': [(366, 375), (299, 493)], 'text_position': (333, 434)},
-    'Region 7': {'boundary': [(299, 493), (211, 404)], 'text_position': (239, 431)},
-    'Region 8': {'boundary': [(211, 404), (64, 259)], 'text_position': (153, 321)},
+    'Region 1': {'boundary': [(533, 260), (466, 97)], 'text_position': (513, 169)},
+    'Region 2': {'boundary': [(466, 97), (298, 25)], 'text_position': (385, 44)},
+    'Region 3': {'boundary': [(298, 25), (131, 96)], 'text_position': (211, 44)},
+    'Region 4': {'boundary': [(131, 96), (64, 260)], 'text_position': (84, 169)},
+    'Region 5': {'boundary': [(64, 260), (136, 426)], 'text_position': (84, 358)},
+    'Region 6': {'boundary': [(136, 426), (299, 498)], 'text_position': (215, 473)},
+    'Region 7': {'boundary': [(299, 498), (465, 260)], 'text_position': (392, 473)},
+    'Region 8': {'boundary': [(465, 260), (533, 260)], 'text_position': (512, 358)},
 }
 
 def get_regions(region_type, batting_hand):
