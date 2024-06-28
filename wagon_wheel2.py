@@ -387,7 +387,7 @@ def main():
         )
 
         # Filter data based on phase
-     data = filter_data_by_phase(data, phase_option)
+    data = filter_data_by_phase(data, phase_option)
 
         # Step 5: Filter data by bowling type and subtype
     bowling_type = st.selectbox("Select the bowling type", ["Both", "Pace", "Spin"])
