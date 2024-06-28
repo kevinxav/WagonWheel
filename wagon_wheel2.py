@@ -349,7 +349,6 @@ def main():
     
     data = pd.read_csv('Ausvsnz_new.csv')
 
-
     required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WagonWheel', 'BatRuns']
     missing_columns = [col for col in required_columns if col not in data.columns]
         
