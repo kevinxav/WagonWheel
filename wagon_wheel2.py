@@ -416,7 +416,7 @@ def main():
         spin_subtype = st.selectbox("Select the spin subtype", ["All", "RAO", "SLAO", "RALB", "LAC"])
 
     data = filter_data_by_bowling_type(data, bowling_type,pace_subtype, spin_subtype)
-    data = filter_data_by_phase(data, phase_type)
+    data = filter_data_by_phase(data, phase_type,pace_subtype,spin_subtype)
 
     total_runs_all = data.groupby('StrikerName')['batruns'].sum().to_dict()
 
