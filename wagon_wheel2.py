@@ -347,7 +347,7 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
 def main():
     st.title('Wagon Wheel')
     
-    data = pd.read_csv('Ausvsnz_new.csv')
+    data = pd.read_csv('NewData.csv')
 
     required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WagonWheel', 'BatRuns']
     missing_columns = [col for col in required_columns if col not in data.columns]
