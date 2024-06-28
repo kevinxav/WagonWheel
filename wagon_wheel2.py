@@ -400,11 +400,11 @@ def main():
     if phase_type == "3Phase":
         phase_options = ["All", "1 to 6", "7 to 15", "16 to 20"]
         selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
-        filtered_data = filter_data_by_phase(filtered_data, 'Phase3idStarPhrase', selected_phases)
+        data = filter_data_by_phase(data, 'Phase3idStarPhrase', selected_phases)
     elif phase_type == "4Phase":
         phase_options = ["All", "1 to 6", "7 to 10", "11-15", "16 to 20"]
         selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
-        filtered_data = filter_data_by_phase(filtered_data, 'Phase4idPhrase', selected_phases)
+        data = filter_data_by_phase(data, 'Phase4idPhrase', selected_phases)
 
 
         # Step 5: Filter data by bowling type and subtype
