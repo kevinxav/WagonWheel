@@ -364,7 +364,7 @@ def main():
     batsmen = data['StrikerName'].unique().tolist()
     selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
 
-    if selected_batsman_name:
+    if selected_batsman:
         # Pace or Spin filter
         pace_or_spin = st.multiselect("Select bowler type (Pace/Spin):", ["All", "Pace", "Spin"], default=["All"])
 
