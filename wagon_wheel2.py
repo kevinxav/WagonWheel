@@ -346,10 +346,9 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
 
 def main():
     st.title('Wagon Wheel')
-    uploaded_file = st.file_uploader("Choose a file")
     
     if uploaded_file:
-        data = pd.read_csv(uploaded_file)
+        data = pd.read_csv('Ausvsnz_new.csv')
 
         # Print column names for debugging
         st.write("Columns in the uploaded file:", data.columns.tolist())
