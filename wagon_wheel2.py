@@ -403,7 +403,7 @@ def main():
             ('All', 'Power Play (1-6)', 'Middle Overs (7-15)', 'Death Overs (16-20)')
         )
 
-     phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
+    phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
         if phase_type == "3Phase":
             phase_options = ["All", "1 to 6", "7 to 15", "16 to 20"]
             selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
