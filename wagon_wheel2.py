@@ -349,7 +349,7 @@ def main():
     
     data = pd.read_csv('NewData.csv')
 
-    required_columns = ['MatchName', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
+    required_columns = ['matchid', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
     missing_columns = [col for col in required_columns if col not in data.columns]
         
     if missing_columns:
@@ -357,11 +357,11 @@ def main():
         return
 
         # Step 1: Add a dropdown to select the match name
-    match_names = data['MatchName'].unique().tolist()
+    match_names = data['matchid'].unique().tolist()
     match_name = st.selectbox("Select the Match", match_names)
 
         # Filter data based on selected match
-    data = data[data['MatchName'] == match_name]
+    data = data[data['matchid'] == match_name]
 
         # Step 2: Proceed with region selection
     region_option = st.selectbox(
