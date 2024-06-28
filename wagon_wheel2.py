@@ -41,7 +41,7 @@ def filter_data_by_phase(data, phase):
         return data
 
 def six_region(data, batsman_name, total_runs_all, plots, phase_option):
-    batting_type_data = data[data['StrikerName'] == batsman_name]['BattingType']
+    batting_type_data = data[data['StrikerName'] == batsman_name]['StrikerBattingType']
     if batting_type_data.empty:
         st.error(f"No data available for {batsman_name} with the selected filter.")
         return
@@ -142,7 +142,7 @@ def six_region(data, batsman_name, total_runs_all, plots, phase_option):
     plt.close()
 
 def four_region(data, batsman_name, total_runs_all, plots):
-    batting_type_data = data[data['StrikerName'] == batsman_name]['BattingType']
+    batting_type_data = data[data['StrikerName'] == batsman_name]['StrikerBattingType']
     if batting_type_data.empty:
         st.error(f"No data available for {batsman_name} with the selected filter.")
         return
@@ -231,7 +231,7 @@ def four_region(data, batsman_name, total_runs_all, plots):
     plt.close()
 
 def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
-    batting_type_data = data[data['StrikerName'] == batsman_name]['BattingType']
+    batting_type_data = data[data['StrikerName'] == batsman_name]['StrikerBattingType']
     if batting_type_data.empty:
         st.error(f"No data available for {batsman_name} with the selected filter.")
         return
@@ -349,7 +349,7 @@ def main():
     
     data = pd.read_csv('NewData.csv')
 
-    required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WWregion63', 'batruns']
+    required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
     missing_columns = [col for col in required_columns if col not in data.columns]
         
     if missing_columns:
