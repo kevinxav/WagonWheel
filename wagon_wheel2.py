@@ -364,8 +364,10 @@ def main():
     if missing_columns:
         st.error(f"Missing columns in the uploaded file: {', '.join(missing_columns)}")
         return
-
-        # Step 1: Add a dropdown to select the match name
+    start_date, end_date = st.date_input("Select date range:", [data['Date'].min(), data['Date'].max()])
+    data = data[(data['Date'] >= pd.to_datetime(start_date)) & (data['Date'] <= pd.to_datetime(end_date))]
+        
+    # Step 1: Add a dropdown to select the match name
     match_names = data['matchid'].unique().tolist()
     match_name = st.selectbox("Select the Match", match_names)
 
