@@ -377,11 +377,11 @@ def main():
         data = data[filtered_data['CompName'].isin(selected_competition)]
         
    
-    bat_club_names = list(data['battingclubid'].unique())
-    selected_bat_club_name = st.selectbox("Select the batsman's club id:", bat_club_names)
+    clubs = data['battingclubid'].unique().tolist()
+    selected_club = st.selectbox("Select the club", clubs)
 
-    if selected_bat_club_name:
-        data = data[data['battingclubid'].isin(selected_bat_club_name)]
+        # Filter data based on selected club
+    data = data[data['battingclubid'] == selected_club]
         
     # Step 1: Add a dropdown to select the match name
     match_names = data['matchid'].unique().tolist()
@@ -397,11 +397,7 @@ def main():
         )
 
         # Step 3: Allow user to select batsmen's names
-    clubs = data['battingclubid'].unique().tolist()
-    selected_club = st.selectbox("Select the club", clubs)
-
-        # Filter data based on selected club
-    data = data[data['battingclubid'] == selected_club]
+    
 
         # Multi-select for batsmen
     batsmen = data['StrikerName'].unique().tolist()
