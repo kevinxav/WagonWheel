@@ -423,7 +423,6 @@ def main():
                     zip_file.writestr(f"{batsman}_wagon_wheel_in_{phase_option.replace(' ', '_')}.png", plot.getvalue())
             zip_buffer.seek(0)
         
-            st.markdown(get_binary_file_downloader_html(zip_buffer.getvalue(), 'plots.zip', 'Download all plots as ZIP'), unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
