@@ -357,6 +357,8 @@ def main():
     st.title('Wagon Wheel')
     
     data = pd.read_csv('NewData.csv')
+    data = data.dropna(subset=['overs'])
+    data['Date'] = pd.to_datetime(data['date'])
 
     required_columns = ['date','matchid', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
     missing_columns = [col for col in required_columns if col not in data.columns]
@@ -364,7 +366,8 @@ def main():
     if missing_columns:
         st.error(f"Missing columns in the uploaded file: {', '.join(missing_columns)}")
         return
-    start_date, end_date = st.date_input("Select date range:", [data['Date'].min(), data['Date'].max()])
+    
+    start_date, end_date = st.date_input("Select date range:", [data[''].min(), data['Date'].max()])
     data = data[(data['Date'] >= pd.to_datetime(start_date)) & (data['Date'] <= pd.to_datetime(end_date))]
         
     # Step 1: Add a dropdown to select the match name
