@@ -78,8 +78,8 @@ def six_region(data, batsman_name, total_runs_all, plots, phase_option):
 
     region_runs = {region: 0 for region in regions}
     for index, row in data[data['StrikerName'] == batsman_name].iterrows():
-        wagon_wheel_position = row['WagonWheel']
-        runs_scored = row['BatRuns']
+        wagon_wheel_position = row['WWregion63']
+        runs_scored = row['batruns']
         if batting_type == 'RHB':
             if wagon_wheel_position in [23, 15, 7, 24, 16, 8]:
                 region_runs['Region 1'] += runs_scored
@@ -175,8 +175,8 @@ def four_region(data, batsman_name, total_runs_all, plots):
 
     region_runs = {region: 0 for region in regions}
     for index, row in data[data['StrikerName'] == batsman_name].iterrows():
-        wagon_wheel_position = row['WagonWheel']
-        runs_scored = row['BatRuns']
+        wagon_wheel_position = row['WWregion63']
+        runs_scored = row['batruns']
         if batting_type == 'RHB':
             if wagon_wheel_position in [23, 15, 7, 24, 16, 8]:
                 region_runs['Region 1'] += runs_scored
@@ -272,8 +272,8 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
 
     region_runs = {region: 0 for region in regions}
     for index, row in data[data['StrikerName'] == batsman_name].iterrows():
-        wagon_wheel_position = row['WagonWheel']
-        runs_scored = row['BatRuns']
+        wagon_wheel_position = row['WWregion63']
+        runs_scored = row['batruns']
         if batting_type == 'RHB':
             if wagon_wheel_position in [23, 15, 7]:
                 region_runs['Region 1'] += runs_scored
@@ -349,7 +349,7 @@ def main():
     
     data = pd.read_csv('NewData.csv')
 
-    required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WagonWheel', 'BatRuns']
+    required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WWregion63', 'batruns']
     missing_columns = [col for col in required_columns if col not in data.columns]
         
     if missing_columns:
@@ -399,7 +399,7 @@ def main():
 
     data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
 
-    total_runs_all = data.groupby('StrikerName')['BatRuns'].sum().to_dict()
+    total_runs_all = data.groupby('StrikerName')['batruns'].sum().to_dict()
 
     plots = []
 
