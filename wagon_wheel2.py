@@ -331,7 +331,7 @@ def main():
     data = data.dropna(subset=['overs'])
     data['Date'] = pd.to_datetime(data['date'])
 
-    required_columns = ['date','matchid', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
+    required_columns = ['date','CompName','matchid', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
     missing_columns = [col for col in required_columns if col not in data.columns]
         
     if missing_columns:
@@ -376,7 +376,7 @@ def main():
                 pace_or_spin_values.append(2)
             data = data[data['PaceorSpin'].isin(pace_or_spin_values)]
 
-        # Bowling Type Group filter
+ # Bowling Type Group filter
         if "Pace" in pace_or_spin:
             bowling_type_options = ["All", "RAP", "LAP"]
             selected_bowling_types = st.multiselect("Select Bowling Type Group:", bowling_type_options, default=["All"])
@@ -386,7 +386,7 @@ def main():
                     bowling_type_values.append(1)
                 if "LAP" in selected_bowling_types:
                     bowling_type_values.append(2)
-                data = data[data['BowlingTypeGroup'].isin(bowling_type_values)]
+                filtered_data = filtered_data[filtered_data['BowlingTypeGroup'].isin(bowling_type_values)]
 
         if "Spin" in pace_or_spin:
             bowling_type_options = ["All", "RAO", "SLAO", "RALB", "LAC"]
@@ -401,7 +401,7 @@ def main():
                     bowling_type_values.append(5)
                 if "LAC" in selected_bowling_types:
                     bowling_type_values.append(6)
-                data = data[data['BowlingTypeGroup'].isin(bowling_type_values)]
+                filtered_data = filtered_data[filtered_data['BowlingTypeGroup'].isin(bowling_type_values)]
 
         # Phase selection
         phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
