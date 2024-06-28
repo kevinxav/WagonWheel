@@ -389,19 +389,19 @@ def main():
         data = data[data['matchid'].isin(selected_match_id)]
 
         # Step 2: Proceed with region selection
+    # Multi-select for batsmen
+    batsmen = data['StrikerName'].unique().tolist()
+    selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
+
+
     region_option = st.selectbox(
             'Select the region option',
             ('4 Region', '6 Region', '8 Region')
         )
 
-        # Step 3: Allow user to select batsmen's names
-    
-
-        # Multi-select for batsmen
-    batsmen = data['StrikerName'].unique().tolist()
-    selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
-
-        # Step 4: Add a dropdown to select the phase of the game
+    # Step 3: Allow user to select batsmen's names
+   
+    # Step 4: Add a dropdown to select the phase of the game
     phase_option = st.selectbox(
             'Select the phase of the game',
             ('All', 'Power Play (1-6)', 'Middle Overs (7-15)', 'Death Overs (16-20)')
