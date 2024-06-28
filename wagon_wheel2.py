@@ -349,7 +349,7 @@ def main():
     
     data = pd.read_csv('NewData.csv')
 
-    required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
+    required_columns = ['MatchName', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
     missing_columns = [col for col in required_columns if col not in data.columns]
         
     if missing_columns:
@@ -370,11 +370,11 @@ def main():
         )
 
         # Step 3: Allow user to select batsmen's names
-    clubs = data['BatClubName'].unique().tolist()
+    clubs = data['battingclubid'].unique().tolist()
     selected_club = st.selectbox("Select the club", clubs)
 
         # Filter data based on selected club
-    data = data[data['BatClubName'] == selected_club]
+    data = data[data['battingclubid'] == selected_club]
 
         # Multi-select for batsmen
     batsmen = data['StrikerName'].unique().tolist()
