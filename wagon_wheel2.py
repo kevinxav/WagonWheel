@@ -5,31 +5,6 @@ from io import BytesIO
 import base64
 import zipfile
 
-
-def filter_data_by_bowling_type(data, bowling_type, pace_subtype=None, spin_subtype=None):
-    if bowling_type == "Pace":
-        if pace_subtype == "RAP":
-            return data[data['BowlerType'] == 1]
-        elif pace_subtype == "LAP":
-            return data[data['BowlerType'] == 2]
-        else:
-            return data
-    elif bowling_type == "Spin":
-        if spin_subtype == "RAO":
-            return data[data['BowlerType'] == 3]
-        elif spin_subtype == "SLAO":
-            return data[data['BowlerType'] == 4]
-        elif spin_subtype == "RALB":
-            return data[data['BowlerType'] == 5]
-        elif spin_subtype == "LAC":
-            return data[data['BowlerType'] == 6]
-        else:
-            return data
-    elif bowling_type == "Both":
-        return data
-    else:
-        return data
-
 def filter_data_by_phase(data, phase_column, selected_phases):
     if "All" in selected_phases:
         return data
