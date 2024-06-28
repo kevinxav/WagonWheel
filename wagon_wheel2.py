@@ -5,11 +5,6 @@ from io import BytesIO
 import base64
 import zipfile
 
-# Function to create a download link
-def get_binary_file_downloader_html(data, file_label='File', button_text='Download'):
-    b64 = base64.b64encode(data).decode()
-    href = f'<a href="data:application/octet-stream;base64,{b64}" download="{file_label}">{button_text}</a>'
-    return href
 
 def filter_data_by_bowling_type(data, bowling_type, pace_subtype=None, spin_subtype=None):
     if bowling_type == "Pace":
