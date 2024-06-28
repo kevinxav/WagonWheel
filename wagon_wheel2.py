@@ -374,9 +374,8 @@ def main():
     selected_competition = st.multiselect("Select competition:", competitions)
 
     if selected_competition:
-        data = data[filtered_data['CompName'].isin(selected_competition)]
+        data = data[data['CompName'].isin(selected_competition)]
         
-   
     clubs = data['battingclubid'].unique().tolist()
     selected_club = st.selectbox("Select the club", clubs)
 
