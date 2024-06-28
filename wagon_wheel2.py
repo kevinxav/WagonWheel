@@ -389,34 +389,61 @@ def main():
     batsmen = data['StrikerName'].unique().tolist()
     selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
 
+    if selected_batsman_name:
+        # Pace or Spin filter
+        pace_or_spin = st.multiselect("Select bowler type (Pace/Spin):", ["All", "Pace", "Spin"], default=["All"])
+
+        if "All" not in pace_or_spin:
+            pace_or_spin_values = []
+            if "Pace" in pace_or_spin:
+                pace_or_spin_values.append(1)
+            if "Spin" in pace_or_spin:
+                pace_or_spin_values.append(2)
+            data = data[data['PaceorSpin'].isin(pace_or_spin_values)]
+
+        # Bowling Type Group filter
+        if "Pace" in pace_or_spin:
+            bowling_type_options = ["All", "RAP", "LAP"]
+            selected_bowling_types = st.multiselect("Select Bowling Type Group:", bowling_type_options, default=["All"])
+            if "All" not in selected_bowling_types:
+                bowling_type_values = []
+                if "RAP" in selected_bowling_types:
+                    bowling_type_values.append(1)
+                if "LAP" in selected_bowling_types:
+                    bowling_type_values.append(2)
+                data = data[data['BowlingTypeGroup'].isin(bowling_type_values)]
+
+        if "Spin" in pace_or_spin:
+            bowling_type_options = ["All", "RAO", "SLAO", "RALB", "LAC"]
+            selected_bowling_types = st.multiselect("Select Bowling Type Group:", bowling_type_options, default=["All"])
+            if "All" not in selected_bowling_types:
+                bowling_type_values = []
+                if "RAO" in selected_bowling_types:
+                    bowling_type_values.append(3)
+                if "SLAO" in selected_bowling_types:
+                    bowling_type_values.append(4)
+                if "RALB" in selected_bowling_types:
+                    bowling_type_values.append(5)
+                if "LAC" in selected_bowling_types:
+                    bowling_type_values.append(6)
+                data = data[data['BowlingTypeGroup'].isin(bowling_type_values)]
+
+        # Phase selection
+        phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
+        if phase_type == "3Phase":
+            phase_options = ["All", "1 to 6", "7 to 15", "16 to 20"]
+            selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
+            data = filter_data_by_phase(data, 'Phase3idStarPhrase', selected_phases)
+        elif phase_type == "4Phase":
+            phase_options = ["All", "1 to 6", "7 to 10", "11-15", "16 to 20"]
+            selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
+            data = filter_data_by_phase(data, 'Phase4idPhrase', selected_phases)
 
     region_option = st.selectbox(
             'Select the region option',
             ('4 Region', '6 Region', '8 Region')
         )
 
-
-    phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
-    if phase_type == "3Phase":
-        phase_options = ["All", "1 to 6", "7 to 15", "16 to 20"]
-        selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
-        data = filter_data_by_phase(data, 'Phase3idStarPhrase', selected_phases)
-    elif phase_type == "4Phase":
-        phase_options = ["All", "1 to 6", "7 to 10", "11-15", "16 to 20"]
-        selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
-        data = filter_data_by_phase(data, 'Phase4idPhrase', selected_phases)
-
-
-        # Step 5: Filter data by bowling type and subtype
-    bowling_type = st.selectbox("Select the bowling type", ["Both", "Pace", "Spin"])
-    pace_subtype = spin_subtype = None
-    if bowling_type == "Pace":
-        pace_subtype = st.selectbox("Select the pace subtype", ["All", "RAP", "LAP"])
-    elif bowling_type == "Spin":
-        spin_subtype = st.selectbox("Select the spin subtype", ["All", "RAO", "SLAO", "RALB", "LAC"])
-
-    data = filter_data_by_bowling_type(data, bowling_type,pace_subtype, spin_subtype)
-    data = filter_data_by_phase(filtered_data, phase_column, [phase_option])
 
     total_runs_all = data.groupby('StrikerName')['batruns'].sum().to_dict()
 
