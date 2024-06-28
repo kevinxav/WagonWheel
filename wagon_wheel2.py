@@ -66,9 +66,10 @@ def six_region(data, batsman_name, total_runs_all, plots, phase_option):
         'Region 6': {'boundary': [(536, 263), (461,263)], 'text_position': (516, 343)},
     }
 
-   if total_runs == 0:
-       st.error(f"No total runs available for {batsman_name}.")
-       return
+    total_runs = total_runs_all.get(batsman_name, 0)
+    if total_runs == 0:
+        st.error(f"No total runs available for {batsman_name}.")
+        return
 
     if batting_type == 1:
         regions = regions_rhb
@@ -165,6 +166,7 @@ def four_region(data, batsman_name, total_runs_all, plots):
         'Region 4': {'boundary': [(299, 493), (64, 262)], 'text_position': (456, 432)},
     }
 
+    total_runs = total_runs_all.get(batsman_name, 0)
     if total_runs == 0:
         st.error(f"No total runs available for {batsman_name}.")
         return
@@ -264,6 +266,7 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
         'Region 8': {'boundary': [(465, 260), (533, 260)], 'text_position': (512, 358)},
     }
 
+    total_runs = total_runs_all.get(batsman_name, 0)
     if total_runs == 0:
         st.error(f"No total runs available for {batsman_name}.")
         return
