@@ -67,8 +67,8 @@ def six_region(data, batsman_name, total_runs_all, plots, phase_option):
     }
 
    if total_runs == 0:
-        st.error(f"No total runs available for {batsman_name}.")
-        return
+       st.error(f"No total runs available for {batsman_name}.")
+       return
 
     if batting_type == 1:
         regions = regions_rhb
