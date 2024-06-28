@@ -400,7 +400,7 @@ def main():
         phase_options = ["All", "1 to 6", "7 to 15", "16 to 20"]
         selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
     elif phase_type == "4Phase":
-        phase_options = ["All", "1 to 6", "7 to 10", "11-15", "16 to 20"]
+        phase_options = ["All", "1 to 6", "7 to 10", "11 to 15", "16 to 20"]
         selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
 
     data = filter_data_by_phase(data, phase_type, selected_phases)
