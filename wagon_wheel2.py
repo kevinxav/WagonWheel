@@ -30,15 +30,11 @@ def filter_data_by_bowling_type(data, bowling_type, pace_subtype=None, spin_subt
     else:
         return data
 
-def filter_data_by_phase(data, phase):
-    if phase == "Power Play (1-6)":
-        return data[(data['overs'] >= 0.1) & (data['overs'] <= 5.6)]
-    elif phase == "Middle Overs (7-15)":
-        return data[(data['overs'] >= 6.1) & (data['overs'] <= 14.6)]
-    elif phase == "Death Overs (16-20)":
-        return data[(data['overs'] >= 15.1) & (data['overs'] <= 19.6)]
-    else:  # "All"
+def filter_data_by_phase(data, phase_column, selected_phases):
+    if "All" in selected_phases:
         return data
+    else:
+        return data[data[phase_column].isin(selected_phases)]
 
 def six_region(data, batsman_name, total_runs_all, plots, phase_option):
     batting_type_data = data[data['StrikerName'] == batsman_name]['StrikerBattingType']
@@ -407,8 +403,16 @@ def main():
             ('All', 'Power Play (1-6)', 'Middle Overs (7-15)', 'Death Overs (16-20)')
         )
 
-        # Filter data based on phase
-    data = filter_data_by_phase(data, phase_option)
+     phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
+        if phase_type == "3Phase":
+            phase_options = ["All", "1 to 6", "7 to 15", "16 to 20"]
+            selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
+            filtered_data = filter_data_by_phase(filtered_data, 'Phase3idStarPhrase', selected_phases)
+        elif phase_type == "4Phase":
+            phase_options = ["All", "1 to 6", "7 to 10", "11-15", "16 to 20"]
+            selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
+            filtered_data = filter_data_by_phase(filtered_data, 'Phase4idPhrase', selected_phases)
+
 
         # Step 5: Filter data by bowling type and subtype
     bowling_type = st.selectbox("Select the bowling type", ["Both", "Pace", "Spin"])
