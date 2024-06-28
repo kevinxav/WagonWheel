@@ -382,12 +382,11 @@ def main():
         # Filter data based on selected club
     data = data[data['battingclubid'] == selected_club]
         
-    # Step 1: Add a dropdown to select the match name
-    match_names = data['matchid'].unique().tolist()
-    match_name = st.selectbox("Select the Match", match_names)
+    match_ids = ['All'] + list(data['matchid'].unique())
+    selected_match_id = st.multiselect("Select Match:", match_ids, default=['All'])
 
-        # Filter data based on selected match
-    data = data[data['matchid'] == match_name]
+    if 'All' not in selected_match_id:
+        data = data[data['matchid'].isin(selected_match_id)]
 
         # Step 2: Proceed with region selection
     region_option = st.selectbox(
