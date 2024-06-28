@@ -362,9 +362,9 @@ def main():
         # Step 2: Proceed with region selection
     # Multi-select for batsmen
     batsmen = data['StrikerName'].unique().tolist()
-    selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
+    batsmen_name = st.multiselect("Select the batsmen", batsmen, default=batsmen)
 
-    if selected_batsman:
+    if batsman_name:
         # Pace or Spin filter
         pace_or_spin = st.multiselect("Select bowler type (Pace/Spin):", ["All", "Pace", "Spin"], default=["All"])
 
