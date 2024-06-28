@@ -369,6 +369,12 @@ def main():
     
     start_date, end_date = st.date_input("Select date range:", [data['Date'].min(), data['Date'].max()])
     data = data[(data['Date'] >= pd.to_datetime(start_date)) & (data['Date'] <= pd.to_datetime(end_date))]
+
+    competitions = list(data['CompName'].unique())
+    selected_competition = st.multiselect("Select competition:", competitions)
+
+    if selected_competition:
+        data = data[filtered_data['CompName'].isin(selected_competition)]
         
     # Step 1: Add a dropdown to select the match name
     match_names = data['matchid'].unique().tolist()
