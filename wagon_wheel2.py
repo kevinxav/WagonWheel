@@ -395,13 +395,6 @@ def main():
             ('4 Region', '6 Region', '8 Region')
         )
 
-    # Step 3: Allow user to select batsmen's names
-   
-    # Step 4: Add a dropdown to select the phase of the game
-    phase_option = st.selectbox(
-            'Select the phase of the game',
-            ('All', 'Power Play (1-6)', 'Middle Overs (7-15)', 'Death Overs (16-20)')
-        )
 
     phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
     if phase_type == "3Phase":
