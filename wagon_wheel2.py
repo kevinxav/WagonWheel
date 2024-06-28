@@ -425,9 +425,9 @@ def main():
         if region_option == '4 Region':
             four_region(data, batsman, total_runs_all, plots)
         elif region_option == '6 Region':
-            six_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
+            six_region(data, batsman, total_runs_all, plots)  # Pass phase_option here
         elif region_option == '8 Region':
-            eight_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
+            eight_region(data, batsman, total_runs_all, plots)  # Pass phase_option here
         
     if plots:
         zip_buffer = BytesIO()
