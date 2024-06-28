@@ -347,77 +347,77 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
 def main():
     st.title('Wagon Wheel')
     
-        data = pd.read_csv('Ausvsnz_new.csv')
+    data = pd.read_csv('Ausvsnz_new.csv')
 
 
-        required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WagonWheel', 'BatRuns']
-        missing_columns = [col for col in required_columns if col not in data.columns]
+    required_columns = ['MatchName', 'BatClubName', 'StrikerName', 'BattingType', 'WagonWheel', 'BatRuns']
+    missing_columns = [col for col in required_columns if col not in data.columns]
         
-        if missing_columns:
-            st.error(f"Missing columns in the uploaded file: {', '.join(missing_columns)}")
-            return
+    if missing_columns:
+        st.error(f"Missing columns in the uploaded file: {', '.join(missing_columns)}")
+        return
 
         # Step 1: Add a dropdown to select the match name
-        match_names = data['MatchName'].unique().tolist()
-        match_name = st.selectbox("Select the Match", match_names)
+    match_names = data['MatchName'].unique().tolist()
+    match_name = st.selectbox("Select the Match", match_names)
 
         # Filter data based on selected match
-        data = data[data['MatchName'] == match_name]
+    data = data[data['MatchName'] == match_name]
 
         # Step 2: Proceed with region selection
-        region_option = st.selectbox(
+    region_option = st.selectbox(
             'Select the region option',
             ('4 Region', '6 Region', '8 Region')
         )
 
         # Step 3: Allow user to select batsmen's names
-        clubs = data['BatClubName'].unique().tolist()
-        selected_club = st.selectbox("Select the club", clubs)
+    clubs = data['BatClubName'].unique().tolist()
+    selected_club = st.selectbox("Select the club", clubs)
 
         # Filter data based on selected club
-        data = data[data['BatClubName'] == selected_club]
+    data = data[data['BatClubName'] == selected_club]
 
         # Multi-select for batsmen
-        batsmen = data['StrikerName'].unique().tolist()
-        selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
+    batsmen = data['StrikerName'].unique().tolist()
+    selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
 
         # Step 4: Add a dropdown to select the phase of the game
-        phase_option = st.selectbox(
+    phase_option = st.selectbox(
             'Select the phase of the game',
             ('All', 'Power Play (1-6)', 'Middle Overs (7-15)', 'Death Overs (16-20)')
         )
 
         # Filter data based on phase
-        data = filter_data_by_phase(data, phase_option)
+     data = filter_data_by_phase(data, phase_option)
 
         # Step 5: Filter data by bowling type and subtype
-        bowling_type = st.selectbox("Select the bowling type", ["Both", "Pace", "Spin"])
-        pace_subtype = spin_subtype = None
-        if bowling_type == "Pace":
-            pace_subtype = st.selectbox("Select the pace subtype", ["All", "RAP", "LAP"])
-        elif bowling_type == "Spin":
-            spin_subtype = st.selectbox("Select the spin subtype", ["All", "RAO", "SLAO", "RALB", "LAC"])
+    bowling_type = st.selectbox("Select the bowling type", ["Both", "Pace", "Spin"])
+    pace_subtype = spin_subtype = None
+    if bowling_type == "Pace":
+        pace_subtype = st.selectbox("Select the pace subtype", ["All", "RAP", "LAP"])
+    elif bowling_type == "Spin":
+        spin_subtype = st.selectbox("Select the spin subtype", ["All", "RAO", "SLAO", "RALB", "LAC"])
 
-        data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
+    data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
 
-        total_runs_all = data.groupby('StrikerName')['BatRuns'].sum().to_dict()
+    total_runs_all = data.groupby('StrikerName')['BatRuns'].sum().to_dict()
 
-        plots = []
+    plots = []
 
-        for batsman in selected_batsmen:
-            if region_option == '4 Region':
-                four_region(data, batsman, total_runs_all, plots)
-            elif region_option == '6 Region':
-                six_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
-            elif region_option == '8 Region':
-                eight_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
+    for batsman in selected_batsmen:
+        if region_option == '4 Region':
+            four_region(data, batsman, total_runs_all, plots)
+        elif region_option == '6 Region':
+            six_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
+        elif region_option == '8 Region':
+            eight_region(data, batsman, total_runs_all, plots, phase_option)  # Pass phase_option here
         
-        if plots:
-            zip_buffer = BytesIO()
-            with zipfile.ZipFile(zip_buffer, "w") as zip_file:
-                for batsman, plot in zip(selected_batsmen, plots):
-                    zip_file.writestr(f"{batsman}_wagon_wheel_in_{phase_option.replace(' ', '_')}.png", plot.getvalue())
-            zip_buffer.seek(0)
+    if plots:
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+            for batsman, plot in zip(selected_batsmen, plots):
+                zip_file.writestr(f"{batsman}_wagon_wheel_in_{phase_option.replace(' ', '_')}.png", plot.getvalue())
+        zip_buffer.seek(0)
         
 
 if __name__ == '__main__':
