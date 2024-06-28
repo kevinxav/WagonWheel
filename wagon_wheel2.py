@@ -358,7 +358,7 @@ def main():
     
     data = pd.read_csv('NewData.csv')
 
-    required_columns = ['matchid', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
+    required_columns = ['date','matchid', 'battingclubid', 'StrikerName', 'StrikerBattingType', 'WWregion63', 'batruns']
     missing_columns = [col for col in required_columns if col not in data.columns]
         
     if missing_columns:
