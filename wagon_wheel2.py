@@ -379,7 +379,6 @@ def main():
     clubs = data['battingclubid'].unique().tolist()
     selected_club = st.selectbox("Select the club", clubs)
 
-        # Filter data based on selected club
     data = data[data['battingclubid'] == selected_club]
         
     match_ids = ['All'] + list(data['matchid'].unique())
@@ -388,30 +387,24 @@ def main():
     if 'All' not in selected_match_id:
         data = data[data['matchid'].isin(selected_match_id)]
 
-        # Step 2: Proceed with region selection
-    # Multi-select for batsmen
     batsmen = data['StrikerName'].unique().tolist()
     selected_batsmen = st.multiselect("Select the batsmen", batsmen, default=batsmen)
 
-
     region_option = st.selectbox(
-            'Select the region option',
-            ('4 Region', '6 Region', '8 Region')
-        )
-
+        'Select the region option',
+        ('4 Region', '6 Region', '8 Region')
+    )
 
     phase_type = st.selectbox("Select phase type (3Phase/4Phase):", ["3Phase", "4Phase"])
     if phase_type == "3Phase":
         phase_options = ["All", "1 to 6", "7 to 15", "16 to 20"]
         selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
-        data = filter_data_by_phase(data, 'Phase3idStarPhrase', selected_phases)
     elif phase_type == "4Phase":
         phase_options = ["All", "1 to 6", "7 to 10", "11-15", "16 to 20"]
         selected_phases = st.multiselect("Select Phase:", phase_options, default=["All"])
-        data = filter_data_by_phase(data, 'Phase4idPhrase', selected_phases)
 
+    data = filter_data_by_phase(data, phase_type, selected_phases)
 
-        # Step 5: Filter data by bowling type and subtype
     bowling_type = st.selectbox("Select the bowling type", ["Both", "Pace", "Spin"])
     pace_subtype = spin_subtype = None
     if bowling_type == "Pace":
@@ -419,8 +412,7 @@ def main():
     elif bowling_type == "Spin":
         spin_subtype = st.selectbox("Select the spin subtype", ["All", "RAO", "SLAO", "RALB", "LAC"])
 
-    data = filter_data_by_bowling_type(data, bowling_type,pace_subtype, spin_subtype)
-    data = filter_data_by_phase(data, phase_type,pace_subtype,spin_subtype)
+    data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
 
     total_runs_all = data.groupby('StrikerName')['batruns'].sum().to_dict()
 
@@ -430,9 +422,9 @@ def main():
         if region_option == '4 Region':
             four_region(data, batsman, total_runs_all, plots)
         elif region_option == '6 Region':
-            six_region(data, batsman, total_runs_all, plots,phase_type)  # Pass phase_option here
+            six_region(data, batsman, total_runs_all, plots, phase_type)
         elif region_option == '8 Region':
-            eight_region(data, batsman, total_runs_all, plots,phase_type)  # Pass phase_option here
+            eight_region(data, batsman, total_runs_all, plots, phase_type)
         
     if plots:
         zip_buffer = BytesIO()
@@ -440,7 +432,12 @@ def main():
             for batsman, plot in zip(selected_batsmen, plots):
                 zip_file.writestr(f"{batsman}_wagon_wheel_in_{phase_type.replace(' ', '_')}.png", plot.getvalue())
         zip_buffer.seek(0)
-        
+        st.download_button(
+            label="Download ZIP",
+            data=zip_buffer,
+            file_name="wagon_wheel_plots.zip",
+            mime="application/zip"
+        )
 
 if __name__ == '__main__':
     main()
