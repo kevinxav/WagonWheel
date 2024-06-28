@@ -30,15 +30,15 @@ def filter_data_by_bowling_type(data, bowling_type, pace_subtype=None, spin_subt
     else:
         return data
 
-def filter_data_by_phase(data, phase_type, selected_phases):
-    # Implement the filtering logic for phases
+def filter_data_by_phase(data, phase_type, selected_phase):
     if phase_type == "3Phase":
-        if "All" not in selected_phases:
-            data = data[data['Phase3idStarPhrase'].isin(selected_phases)]
+        if selected_phase != "All":
+            data = data[data['Phase3idStarPhrase'] == selected_phase]
     elif phase_type == "4Phase":
-        if "All" not in selected_phases:
-            data = data[data['Phase4idPhrase'].isin(selected_phases)]
+        if selected_phase != "All":
+            data = data[data['Phase4idPhrase'] == selected_phase]
     return data
+
 
 def six_region(data, batsman_name, total_runs_all, plots, phase_option):
     batting_type_data = data[data['StrikerName'] == batsman_name]['StrikerBattingType']
