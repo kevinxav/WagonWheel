@@ -165,9 +165,9 @@ def four_region(data, batsman_name, total_runs_all, plots):
 
     total_runs = total_runs_all[batsman_name]
 
-    if batting_type == '1':
+    if batting_type == 1:
         regions = regions_rhb
-    elif batting_type == '2':
+    elif batting_type == 2:
         regions = regions_lhb
     else:
         st.error("Invalid batting type! Please check the data.")
@@ -177,7 +177,7 @@ def four_region(data, batsman_name, total_runs_all, plots):
     for index, row in data[data['StrikerName'] == batsman_name].iterrows():
         wagon_wheel_position = row['WWregion63']
         runs_scored = row['batruns']
-        if batting_type == '1':
+        if batting_type == 1:
             if wagon_wheel_position in [23, 15, 7, 24, 16, 8]:
                 region_runs['Region 1'] += runs_scored
             elif wagon_wheel_position in [17, 9, 1, 18, 10, 2]:
@@ -186,7 +186,7 @@ def four_region(data, batsman_name, total_runs_all, plots):
                 region_runs['Region 3'] += runs_scored
             elif wagon_wheel_position in [21, 13, 5, 22, 14, 6]:
                 region_runs['Region 4'] += runs_scored
-        elif batting_type == '2':
+        elif batting_type == 2:
             if wagon_wheel_position in [18, 10, 2, 17, 9, 1]:
                 region_runs['Region 1'] += runs_scored
             elif wagon_wheel_position in [24, 16, 8, 23, 15, 7]:
@@ -262,9 +262,9 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
 
     total_runs = total_runs_all[batsman_name]
 
-    if batting_type == '1':
+    if batting_type == 1:
         regions = regions_rhb
-    elif batting_type == '2':
+    elif batting_type == 2:
         regions = regions_lhb
     else:
         st.error("Invalid batting type! Please check the data.")
@@ -274,7 +274,7 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
     for index, row in data[data['StrikerName'] == batsman_name].iterrows():
         wagon_wheel_position = row['WWregion63']
         runs_scored = row['batruns']
-        if batting_type == '1':
+        if batting_type == 1:
             if wagon_wheel_position in [23, 15, 7]:
                 region_runs['Region 1'] += runs_scored
             elif wagon_wheel_position in [24, 16, 8]:
@@ -291,7 +291,7 @@ def eight_region(data, batsman_name, total_runs_all, plots, phase_option):
                 region_runs['Region 7'] += runs_scored
             elif wagon_wheel_position in [22, 14, 6]:
                 region_runs['Region 8'] += runs_scored
-        elif batting_type == '2':
+        elif batting_type == 2:
             if wagon_wheel_position in [18, 10, 2]:
                 region_runs['Region 1'] += runs_scored
             elif wagon_wheel_position in [17, 9, 1]:
