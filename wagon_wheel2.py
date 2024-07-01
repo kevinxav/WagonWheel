@@ -414,7 +414,7 @@ def main():
 
     run_types = st.multiselect("Select run types:", ['0s', '1s', '2s', '3s', '4s', '6s', 'wickets', 'All'], default=['All'])
 
-    data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype,run_types)
+    data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
 
     total_runs_all = data.groupby('StrikerName')['batruns'].sum().to_dict()
 
