@@ -5,6 +5,24 @@ from io import BytesIO
 import base64
 import zipfile
 
+def determine_ball_type(row):
+    if row['Batwkts'] == 1:
+        return 'Batwkts'
+    elif row['0s'] == 1:
+        return '0s'
+    elif row['1s'] == 1:
+        return '1s'
+    elif row['2s'] == 1:
+        return '2s'
+    elif row['3s'] == 1:
+        return '3s'
+    elif row['4s'] == 1:
+        return '4s'
+    elif row['6s'] == 1:
+        return '6s'
+    else:
+        return None
+
 
 def filter_data_by_bowling_type(data, bowling_type, pace_subtype=None, spin_subtype=None):
     if bowling_type == "Pace":
@@ -412,7 +430,16 @@ def main():
     elif bowling_type == "Spin":
         spin_subtype = st.selectbox("Select the spin subtype", ["All", "RAO", "SLAO", "RALB", "LAC"])
 
-    run_types = st.multiselect("Select run types:", ['0s', '1s', '2s', '3s', '4s', '6s', 'wickets', 'All'], default=['All'])
+    run_type_columns = ['1s', '2s', '3s', '0s', 'Batwkts', '4s', '6s']
+    run_types = st.multiselect("Select run types", options=run_type_columns)
+
+    if run_types:
+        conditions = [data[run_type] == 1 for run_type in run_types]
+        if conditions:
+            combined_condition = conditions[0]
+            for condition in conditions[1:]:
+                combined_condition |= condition
+            data = data[combined_condition]
 
     data = filter_data_by_bowling_type(data, bowling_type, pace_subtype, spin_subtype)
 
