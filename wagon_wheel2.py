@@ -459,7 +459,7 @@ def main():
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, "w") as zip_file:
             for batsman, plot in zip(selected_batsmen, plots):
-                zip_file.writestr(f"{batsman}_wagon_wheel_in_{phase_type.replace(' ', '_')}.png", plot.getvalue())
+                zip_file.writestr(f"{batsman}_wagon_wheel_in_{phase_type.replace(' ', '_')}_{bowling_type}.png", plot.getvalue())
         zip_buffer.seek(0)
         st.download_button(
             label="Download ZIP",
