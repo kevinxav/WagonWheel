@@ -479,17 +479,17 @@ def main():
         ax.plot([519, 534], [95, 95], color='black', linewidth=3, alpha=0.3)
         ax.plot([534, 549], [95, 95], color='black', linewidth=3, alpha=0.3)
 
-        lines_and_labels = [
-            ((340, 215), (520, 215), "2m"),
-            ((330, 257), (520, 257), "4m"),
-            ((321, 304), (520, 304), "6m"),
-            ((312, 357), (520, 357), "8m"),
-            ((300, 415), (520, 415), "Halfway")
-        ]
+        # lines_and_labels = [
+        #     ((340, 215), (520, 215), "2m"),
+        #     ((330, 257), (520, 257), "4m"),
+        #     ((321, 304), (520, 304), "6m"),
+        #     ((312, 357), (520, 357), "8m"),
+        #     ((300, 415), (520, 415), "Halfway")
+        # ]
 
-        for start, end, label in lines_and_labels:
-            ax.text(start[0], start[1] - 5, label, verticalalignment='bottom', horizontalalignment='left', color='black', fontsize=6, alpha=1.0)
-            ax.plot([start[0], end[0]], [start[1], end[1]], linestyle='dotted', color='black', alpha=0.5)
+        # for start, end, label in lines_and_labels:
+        #     ax.text(start[0], start[1] - 5, label, verticalalignment='bottom', horizontalalignment='left', color='black', fontsize=6, alpha=1.0)
+        #     ax.plot([start[0], end[0]], [start[1], end[1]], linestyle='dotted', color='black', alpha=0.5)
 
         ax.plot([stump1_end[0], 519], [stump1_end[1], 600], linestyle='dotted', color='red', alpha=0.6)
         ax.plot([stump3_end[0], 549], [stump3_end[1], 600], linestyle='dotted', color='red', alpha=0.6)
