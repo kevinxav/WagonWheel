@@ -296,7 +296,7 @@ def filter_data_by_run_type(data, run_types):
 
 # Main function
 def main():
-    st.title('Cricket Visualization Dashboard')
+    st.title('Cricket Dashboard - kevin_xaviour')
 
     # Load data from default file
     data = read_data()
@@ -452,7 +452,7 @@ def main():
             return
 
         height, width = 600, 1080
-
+        print(f'Pitch Map for {player_name}')
         fig = plt.figure(figsize=(width / 100, height / 100), dpi=100)
         ax = fig.add_subplot(111)
 
@@ -585,7 +585,7 @@ def main():
         region_runs, total_runs, batting_type = calculate_runs_by_region(player_data_filtered, player_name)
         percentage_data = calculate_percentage(region_runs, total_runs)
 
-        fig, ax = create_circle_with_regions(f'Regions for {player_name}', 
+        fig, ax = create_circle_with_regions(f'Wagon Region for {player_name}', 
                                              region_labels_rhb if batting_type == 'RHB' else region_labels_lhb, 
                                              percentage_data, 
                                              cmap_name='Reds',
