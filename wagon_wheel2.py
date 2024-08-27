@@ -369,8 +369,9 @@ def main():
         player_data_filtered = player_data_filtered.dropna(subset=['TransformedX', 'TransformedY'])
 
         fig, ax = plt.subplots(figsize=(width / 100, height / 100), dpi=100)
-        ax.set_title(f'Beehive for {player_name}', fontsize=title_fontsize)
         title_fontsize = 30
+        ax.set_title(f'Beehive for {player_name}', fontsize=title_fontsize)
+        
 
         paragraph = (
             "This is a detailed analysis of the performance metrics for "
