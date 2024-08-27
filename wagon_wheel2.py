@@ -47,7 +47,7 @@ pitch_map_end_x2p = 769
 
 # Function to read data from a default CSV file
 def read_data():
-    file_path = 'NewData.csv'
+    file_path = 'dashboarddata.csv'
     try:
         data = pd.read_csv(file_path)
     except FileNotFoundError:
