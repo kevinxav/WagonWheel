@@ -370,6 +370,7 @@ def main():
 
         fig, ax = plt.subplots(figsize=(width / 100, height / 100), dpi=100)
         ax.set_title(f'Beehive for {player_name}')
+        title_fontsize = 16
 
         heatmap_startdown = 300
         heatmap_startup = 0
