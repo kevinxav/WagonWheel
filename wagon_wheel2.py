@@ -301,57 +301,8 @@ def main():
     # Load data from default file
     data = read_data()
 
-    # Convert the 'date' column to datetime if it's not already
-    data['date'] = pd.to_datetime(data['date'], errors='coerce')
-
-    # Drop rows with invalid or missing dates
-    data = data.dropna(subset=['date'])
-
-    # 1. Select date range
-    start_date, end_date = st.date_input(
-        "Select date range:",
-        [data['date'].min(), data['date'].max()]
-    )
-
-    # Convert the selected dates to datetime for comparison
-    start_date = pd.to_datetime(start_date)
-    end_date = pd.to_datetime(end_date)
-
-    # 2. Select match type
-    selected_match_type = st.selectbox("Select match type", list(reverse_match_type_dict.keys()), key="match_type")
-
-    match_type_id = reverse_match_type_dict[selected_match_type]
-
-    # 3. Select competition
-    available_competitions = data['CompName'].unique()
-    selected_competition = st.selectbox("Select competition", available_competitions, key="competition")
-
-    # Filter the data by date range, match type, and competition
-    data_filtered = data[(data['date'] >= start_date) & 
-                         (data['date'] <= end_date) & 
-                         (data['MatchtypeId'] == match_type_id) & 
-                         (data['CompName'] == selected_competition)]
-    
-    if data_filtered.empty:
-        st.write(f"No data found within the specified date range, match type, and competition.")
-        return
-
-    # 4. Select the batsman's club id
-    available_club_ids = data_filtered['battingclubid'].unique()
-    selected_club_id = st.selectbox("Select the batsman's club id", available_club_ids, key="club_id")
-
-    # Further filter the data by the selected club ID
-    data_filtered = data_filtered[data_filtered['battingclubid'] == selected_club_id]
-
-    # 5. Select Match
-    available_match_ids = data_filtered['matchid'].unique()
-    selected_match_id = st.selectbox("Select Match ID", available_match_ids, key="match_id")
-
-    # Further filter the data by the selected match ID
-    data_filtered = data_filtered[data_filtered['matchid'] == selected_match_id]
-
     # 6. Select multiple batsmen
-    available_player_names = data_filtered['StrikerName'].unique()
+    available_player_names = data['StrikerName'].unique()
     selected_batsmen = st.multiselect("Select players' names", available_player_names, key="batsmen")
 
     # 7. Select bowler type (Pace/Spin)
