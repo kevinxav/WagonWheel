@@ -1,0 +1,1 @@
+# NEW_GRAPHICS_KAD

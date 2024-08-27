@@ -1,6 +1,4 @@
-python-docx
-pdfkit
-pandas
-numpy
 streamlit
 matplotlib
+pandas
+numpy
