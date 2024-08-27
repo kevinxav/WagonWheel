@@ -370,7 +370,7 @@ def main():
 
         fig, ax = plt.subplots(figsize=(width / 100, height / 100), dpi=100)
         ax.set_title(f'Beehive for {player_name}')
-        title_fontsize = 16
+        title_fontsize = 30
 
         heatmap_startdown = 300
         heatmap_startup = 0
@@ -457,6 +457,8 @@ def main():
         print(f'Pitch Map for {player_name}')
         fig = plt.figure(figsize=(width / 100, height / 100), dpi=100)
         ax = fig.add_subplot(111)
+        ax.set_title(f'Pitch Map for {player_name}')
+        title_fontsize = 30
 
         ax.set_xlim(0, width)
         ax.set_ylim(height, 0)
