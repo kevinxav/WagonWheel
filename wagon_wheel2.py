@@ -369,8 +369,17 @@ def main():
         player_data_filtered = player_data_filtered.dropna(subset=['TransformedX', 'TransformedY'])
 
         fig, ax = plt.subplots(figsize=(width / 100, height / 100), dpi=100)
-        ax.set_title(f'Beehive for {player_name}')
+        ax.set_title(f'Beehive for {player_name}', fontsize=title_fontsize)
         title_fontsize = 30
+
+        paragraph = (
+            "This is a detailed analysis of the performance metrics for "
+            f"{player_name}. The data represents various metrics that "
+            "were recorded over a specified period. This information "
+            "can be used to gauge the player's performance and make informed "
+            "decisions about future strategies."
+        )
+        ax.text(0.5, -0.1, paragraph, fontsize=12, ha='center', va='center', transform=ax.transAxes)
 
         heatmap_startdown = 300
         heatmap_startup = 0
