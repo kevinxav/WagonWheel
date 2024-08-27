@@ -373,15 +373,6 @@ def main():
         ax.set_title(f'Beehive for {player_name}', fontsize=title_fontsize)
         
 
-        paragraph = (
-            "This is a detailed analysis of the performance metrics for "
-            f"{player_name}. The data represents various metrics that "
-            "were recorded over a specified period. This information "
-            "can be used to gauge the player's performance and make informed "
-            "decisions about future strategies."
-        )
-        ax.text(0.5, -0.1, paragraph, fontsize=12, ha='center', va='center', transform=ax.transAxes)
-
         heatmap_startdown = 300
         heatmap_startup = 0
         heatmap_enddown = 780
@@ -467,8 +458,9 @@ def main():
         print(f'Pitch Map for {player_name}')
         fig = plt.figure(figsize=(width / 100, height / 100), dpi=100)
         ax = fig.add_subplot(111)
-        ax.set_title(f'Pitch Map for {player_name}')
         title_fontsize = 30
+        ax.set_title(f'Pitch Map for {player_name}', fontsize=title_fontsize)
+        
 
         ax.set_xlim(0, width)
         ax.set_ylim(height, 0)
