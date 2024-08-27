@@ -300,7 +300,7 @@ def main():
 
     # Load data from default file
     data = read_data()
-
+     data_filtered=data
     # 6. Select multiple batsmen
     available_player_names = data['StrikerName'].unique()
     selected_batsmen = st.multiselect("Select players' names", available_player_names, key="batsmen")
